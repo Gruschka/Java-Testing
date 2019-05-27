@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;     //Manage mercenaries and weapons list
 import java.util.List;          //Manage mercenaries and weapons list
 import java.util.Scanner;       //Get User Input
@@ -26,20 +27,29 @@ public class Main {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //Declares scanner and menu
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
+        saveObject save = new saveObject();
+        List weaponList = generateWeaponList(); // Vendor's weapons
+        Player newPlayer = new Player();
 
         //Create new player and generate weapon list
-        System.out.println("Choose your Player Name");
-        String newPlayerName = scanner.nextLine();
-        Player newPlayer = new Player(newPlayerName,2000);
-        List weaponList = generateWeaponList();
-
-
         System.out.println("Welcome to jMordhau!");
+        System.out.println("Would you like to load from last save game? Y/N");
+        char option = scanner.nextLine().charAt(0); //Reads the first char from the read string
+
+        if(option == 'y' || option =='Y'){
+            newPlayer = save.readPlayerFromFile(Constants.SAVE_GAME_FILEPATH);
+            newPlayer.dumpPlayerInfo();
+        }else{
+            System.out.println("Please provide desired Player name");
+            String newPlayerName = scanner.nextLine();
+            newPlayer = new Player(newPlayerName,2000);
+
+        }
 
         //Show menu
         menu.startMenu(newPlayer, weaponList);

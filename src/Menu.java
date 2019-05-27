@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.List;
 
@@ -6,7 +7,7 @@ public class Menu {
 
 
     //Methods
-    public void startMenu(Player aPlayer, List aWeaponList){
+    public void startMenu(Player aPlayer, List aWeaponList) throws IOException {
         this.showMenuOptions();
         int optionChosen = this.getUserMenuOption();
 
@@ -18,12 +19,16 @@ public class Menu {
 
     }
 
+
+
+
     public void showMenuOptions(){
         System.out.println("Choose an option:");
         System.out.println("1 - Create new mercenary");
         System.out.println("2 - Buy weapons");
         System.out.println("3 - See Player's Weapon List");
         System.out.println("4 - See Player's Mercenary List");
+        System.out.println("10 - Save game");
         System.out.println("0 - Quit jMordhau");
     }
 
@@ -32,7 +37,7 @@ public class Menu {
         return result;
     }
 
-    public void resolveMainMenuOption(int menuOptionChosen, Player aPlayer, List aWeaponList){
+    public void resolveMainMenuOption(int menuOptionChosen, Player aPlayer, List aWeaponList) throws IOException {
 
         switch (menuOptionChosen){
             case Constants.CREATE_NEW_MERCENARY:
@@ -54,8 +59,18 @@ public class Menu {
 
             case Constants.SEE_MERCENARY_LIST:
                 System.out.println(aPlayer.playerName+"'s Mercenaries:");
-                this.showMercenaryList(aPlayer.mercenaryList);
+                aPlayer.showMercenaryList(aPlayer.mercenaryList);
                 break;
+
+
+            case Constants.SAVE_GAME:
+                System.out.println("Saving progress!");
+                //Instantiates saveObject class
+                saveObject save = new saveObject();
+                //Saves player object data to file
+                save.writePlayerToFile(aPlayer);
+                break;
+
 
             case Constants.QUIT_JMORDHAU:
                 System.out.println("Thanks for playing!");
@@ -90,16 +105,7 @@ public class Menu {
 
     }
 
-    public void showMercenaryList(List mercenaryList){
-        Mercenary aMercenary = new Mercenary();
 
-        for(int i = 0; i < mercenaryList.size(); i++){
-            System.out.print("{"+(i+1)+"}  ");
-            aMercenary = (Mercenary) mercenaryList.get(i);
-            aMercenary.dumpMercenaryInfo();
-
-        }
-    }
 
     public int getWeaponMenuOption(List weaponList, Player aPlayer){
         int result = menuScanner.nextInt();
