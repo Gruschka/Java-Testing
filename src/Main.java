@@ -1,6 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.ArrayList;     //Manage mercenaries and weapons list
+import java.util.List;          //Manage mercenaries and weapons list
+import java.util.Scanner;       //Get User Input
 
 public class Main {
 
@@ -46,11 +46,8 @@ public class Main {
 
 
 
-
-
-
-
     }
+
 
 
 

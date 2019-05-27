@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-
-public class Player {
+public class Player implements Serializable{
 
     public String playerName;
     public int money;
