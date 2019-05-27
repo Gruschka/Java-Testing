@@ -34,7 +34,7 @@ public class Player implements Serializable{
 
 
     public void showMercenaryList(List mercenaryList){
-        Mercenary aMercenary = new Mercenary();
+        Mercenary aMercenary;
 
         for(int i = 0; i < mercenaryList.size(); i++){
             System.out.print("{"+(i+1)+"}  ");
@@ -42,6 +42,21 @@ public class Player implements Serializable{
             aMercenary.dumpMercenaryInfo();
 
         }
+    }
+
+    public int getIndexOfMercenaryByName(List mercenaryList, String mercenaryName){
+
+        Mercenary aMercenary;
+
+        for(int i = 0; i < mercenaryList.size(); i++){
+            aMercenary = (Mercenary) mercenaryList.get(i);
+            if(aMercenary.name.equals(mercenaryName)){
+                return i;
+            }
+        }
+
+        return Constants.MERCENARY_NOT_FOUND;
+
     }
 
 }

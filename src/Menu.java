@@ -28,6 +28,7 @@ public class Menu {
         System.out.println("2 - Buy weapons");
         System.out.println("3 - See Player's Weapon List");
         System.out.println("4 - See Player's Mercenary List");
+        System.out.println("5 - Edit Mercenary");
         System.out.println("10 - Save game");
         System.out.println("0 - Quit jMordhau");
     }
@@ -38,10 +39,10 @@ public class Menu {
     }
 
     public void resolveMainMenuOption(int menuOptionChosen, Player aPlayer, List aWeaponList) throws IOException {
+        menuScanner.nextLine(); //Prevent the newline to be read as user input
 
         switch (menuOptionChosen){
             case Constants.CREATE_NEW_MERCENARY:
-                menuScanner.nextLine(); //Prevent the newline to be read as user input
                 this.createNewMercenary(aPlayer);
                 break;
 
@@ -61,6 +62,14 @@ public class Menu {
                 System.out.println(aPlayer.playerName+"'s Mercenaries:");
                 aPlayer.showMercenaryList(aPlayer.mercenaryList);
                 break;
+
+            case Constants.EDIT_MERCENARY:
+                System.out.println("Which of the following mercenaries do you want to edit? (case sensitive)");
+                aPlayer.showMercenaryList(aPlayer.mercenaryList);
+                int mercenaryToEdit = menuScanner.nextInt();
+                this.editMercenary(mercenaryToEdit, aPlayer);
+                break;
+
 
 
             case Constants.SAVE_GAME:
@@ -83,6 +92,43 @@ public class Menu {
 
     }
 
+    public void editMercenary(int mercenaryIndex, Player aPlayer){
+        menuScanner.nextLine(); //Prevent the newline to be read as user input
+        System.out.println("Editing: "+mercenaryIndex);
+        //Get the index of a mercenary in the list of mercenaries of a player and store it in a variable
+        Mercenary mercenaryToEdit = (Mercenary) aPlayer.mercenaryList.get(mercenaryIndex -1);// -1 due to the fact that the mercenary list starts by 0
+
+        //Select which weapon is to be replaced
+        System.out.println("What do you want to edit?");
+        System.out.println("1) Primary Weapon"+"\n"+"2) Secondary Weapon"+"\n"+"3)Tertiary weapon");
+        int weaponToEdit = menuScanner.nextInt();
+        System.out.println("Changing "+mercenaryIndex+"'s weapon:["+weaponToEdit+"]");
+
+        //Selecting new item
+        System.out.println("By which item do you wish to replace it?");
+        this.showWeaponList(aPlayer.weaponList);
+        int newWeaponIndex = menuScanner.nextInt();
+        Weapon newWeapon = (Weapon) aPlayer.weaponList.get(newWeaponIndex-1); // -1 due to the fact that the weapon list starts by 0
+
+        //Replacing weapon with the new one
+        switch (weaponToEdit){
+
+            case Constants.PRIMARY_WEAPON:
+                mercenaryToEdit.primary = newWeapon;
+                break;
+
+            case Constants.SECONDARY_WEAPON:
+                mercenaryToEdit.secondary = newWeapon;
+                break;
+
+            case Constants.TERTIARY_WEAPON:
+                mercenaryToEdit.tertiary = newWeapon;
+                break;
+        }
+
+
+
+    }
 
     public void createNewMercenary(Player aPlayer){
         System.out.println("You chose option 1: Create a new Mercenary");

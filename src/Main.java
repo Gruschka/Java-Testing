@@ -38,8 +38,12 @@ public class Main {
 
         //Create new player and generate weapon list
         System.out.println("Welcome to jMordhau!");
+
         System.out.println("Would you like to load from last save game? Y/N");
         char option = scanner.nextLine().charAt(0); //Reads the first char from the read string
+
+
+
 
         if(option == 'y' || option =='Y'){
             newPlayer = save.readPlayerFromFile(Constants.SAVE_GAME_FILEPATH);
@@ -50,6 +54,10 @@ public class Main {
             newPlayer = new Player(newPlayerName,2000);
 
         }
+
+
+
+
 
         //Show menu
         menu.startMenu(newPlayer, weaponList);
