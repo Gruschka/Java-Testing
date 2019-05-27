@@ -12,7 +12,7 @@ public class Mercenary {
          System.out.println(("My name is "+name+", prepare to die!"));
     }
 
-    public void dumpMercenaryInfo(Mercenary aMercenary){
+    public void dumpMercenaryInfo(){
         System.out.println("Name: "+this.name);
         System.out.println("Primary: "+this.primary);
         System.out.println("Secondary: "+this.secondary);
@@ -34,5 +34,7 @@ public class Mercenary {
 
     }
 
+    public Mercenary() {
+    }
 }
 

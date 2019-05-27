@@ -24,7 +24,7 @@ public class Menu {
         System.out.println("2 - Buy weapons");
         System.out.println("3 - See Player's Weapon List");
         System.out.println("4 - See Player's Mercenary List");
-        System.out.println("0 - Quite jMordhau");
+        System.out.println("0 - Quit jMordhau");
     }
 
     public int getUserMenuOption(){
@@ -36,21 +36,25 @@ public class Menu {
 
         switch (menuOptionChosen){
             case Constants.CREATE_NEW_MERCENARY:
-                menuScanner.nextLine();
-                System.out.println("You chose option 1: Create a new Mercenary");
-                System.out.println("Choose a name for your Mercenary");
-                String newName = menuScanner.nextLine();
-                Mercenary newMercenary = new Mercenary(newName);
-                newMercenary.battleCry();
-                aPlayer.mercenaryList.add(newMercenary);
+                menuScanner.nextLine(); //Prevent the newline to be read as user input
+                this.createNewMercenary(aPlayer);
                 break;
 
             case Constants.BUY_WEAPONS:
                 System.out.println("Want to buy some weapons, huh?");
-
+                System.out.println("Available weapons:");
                 this.showWeaponList(aWeaponList);
                 this.getWeaponMenuOption(aWeaponList,aPlayer);
+                break;
 
+            case Constants.SEE_WEAPON_LIST:
+                System.out.println(aPlayer.playerName+"'s Weapons:");
+                this.showWeaponList(aPlayer.weaponList);
+                break;
+
+            case Constants.SEE_MERCENARY_LIST:
+                System.out.println(aPlayer.playerName+"'s Mercenaries:");
+                this.showMercenaryList(aPlayer.mercenaryList);
                 break;
 
             case Constants.QUIT_JMORDHAU:
@@ -65,11 +69,18 @@ public class Menu {
     }
 
 
+    public void createNewMercenary(Player aPlayer){
+        System.out.println("You chose option 1: Create a new Mercenary");
+        System.out.println("Choose a name for your Mercenary");
+        String newName = menuScanner.nextLine();
+        Mercenary newMercenary = new Mercenary(newName);
+        newMercenary.battleCry();
+        aPlayer.mercenaryList.add(newMercenary);
+    }
 
     public void showWeaponList(List weaponList){
 
         Weapon aWeapon = new Weapon();
-        System.out.println("Available weapons:");
         for(int i = 0; i < weaponList.size(); i++){
             System.out.print("{"+(i+1)+"}  ");
             aWeapon = (Weapon) weaponList.get(i);
@@ -77,9 +88,18 @@ public class Menu {
 
         }
 
-
     }
 
+    public void showMercenaryList(List mercenaryList){
+        Mercenary aMercenary = new Mercenary();
+
+        for(int i = 0; i < mercenaryList.size(); i++){
+            System.out.print("{"+(i+1)+"}  ");
+            aMercenary = (Mercenary) mercenaryList.get(i);
+            aMercenary.dumpMercenaryInfo();
+
+        }
+    }
 
     public int getWeaponMenuOption(List weaponList, Player aPlayer){
         int result = menuScanner.nextInt();
