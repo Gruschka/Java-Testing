@@ -41,54 +41,11 @@ public class Menu {
     public void resolveMainMenuOption(int menuOptionChosen, Player aPlayer, List aWeaponList) throws IOException {
         menuScanner.nextLine(); //Prevent the newline to be read as user input
 
-        switch (menuOptionChosen){
-            case Constants.CREATE_NEW_MERCENARY:
-                this.createNewMercenary(aPlayer);
-                break;
+        commandList commandList = new commandList();
+        List menuCommandList = commandList.createCommandList();
+        iCommand commandToExecute = (iCommand) menuCommandList.get(menuOptionChosen);
+        commandToExecute.execute(aPlayer,aWeaponList);
 
-            case Constants.BUY_WEAPONS:
-                System.out.println("Want to buy some weapons, huh?");
-                System.out.println("Available weapons:");
-                this.showWeaponList(aWeaponList);
-                this.getWeaponMenuOption(aWeaponList,aPlayer);
-                break;
-
-            case Constants.SEE_WEAPON_LIST:
-                System.out.println(aPlayer.playerName+"'s Weapons:");
-                this.showWeaponList(aPlayer.weaponList);
-                break;
-
-            case Constants.SEE_MERCENARY_LIST:
-                System.out.println(aPlayer.playerName+"'s Mercenaries:");
-                aPlayer.showMercenaryList(aPlayer.mercenaryList);
-                break;
-
-            case Constants.EDIT_MERCENARY:
-                System.out.println("Which of the following mercenaries do you want to edit? (case sensitive)");
-                aPlayer.showMercenaryList(aPlayer.mercenaryList);
-                int mercenaryToEdit = menuScanner.nextInt();
-                this.editMercenary(mercenaryToEdit, aPlayer);
-                break;
-
-
-
-            case Constants.SAVE_GAME:
-                System.out.println("Saving progress!");
-                //Instantiates saveObject class
-                saveObject save = new saveObject();
-                //Saves player object data to file
-                save.writePlayerToFile(aPlayer);
-                break;
-
-
-            case Constants.QUIT_JMORDHAU:
-                System.out.println("Thanks for playing!");
-                break;
-
-
-            default:
-                System.out.println("Invalid option!");
-        }
 
     }
 
