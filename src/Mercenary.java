@@ -18,21 +18,14 @@ public class Mercenary implements Serializable {
     public void dumpMercenaryInfo(){
         System.out.println("Name: "+this.name);
 
-        if(this.primary != null){
-            System.out.println("Primary: "+this.primary.name);
-        }else{
-            System.out.println("Primary: Empty");
-        }
-        if(this.secondary != null){
-            System.out.println("Secondary: "+this.secondary.name);
-        }else{
-            System.out.println("Secondary: Empty");
-        }
-        if(this.tertiary != null){
-            System.out.println("Tertiary: "+this.tertiary.name);
-        }else{
-            System.out.println("Tertiary: Empty");
-        }
+        System.out.println("Primary:");
+        this.primary.dumpWeapon();
+
+        System.out.println("Secondary:");
+        this.secondary.dumpWeapon();
+
+        System.out.println("Tertiary:");
+        this.tertiary.dumpWeapon();
 
     }
 

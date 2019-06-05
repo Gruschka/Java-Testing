@@ -28,7 +28,11 @@ public class Weapon implements Serializable {
 
     public void dumpWeapon(){
 
-        System.out.println("Type: ["+this.type+"]     Name: ["+this.name+"]     Attack: "+this.attack+" Speed: "+this.speed+" Block: "+this.block+" Cost: "+this.cost);
+        if(this.name != null) {
+            System.out.println("Type: ["+this.type+"]     Name: ["+this.name+"]     Attack: "+this.attack+" Speed: "+this.speed+" Block: "+this.block+" Cost: "+this.cost);
+        }else{
+            System.out.println("Empty");
+        }
 
 
     }

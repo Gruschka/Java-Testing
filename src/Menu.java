@@ -12,7 +12,7 @@ public class Menu {
         int optionChosen = this.getUserMenuOption();
 
         while(optionChosen != Constants.QUIT_JMORDHAU){
-            this.resolveMainMenuOption(optionChosen,aPlayer,aWeaponList);
+            this.resolveMainMenuOption(optionChosen -1,aPlayer,aWeaponList); // because resolveMainMenuOption creates an array of commands and the first command is on the 0 index
             showMenuOptions();
             optionChosen = this.getUserMenuOption();
         }
@@ -29,7 +29,7 @@ public class Menu {
         System.out.println("3 - See Player's Weapon List");
         System.out.println("4 - See Player's Mercenary List");
         System.out.println("5 - Edit Mercenary");
-        System.out.println("10 - Save game");
+        System.out.println("6 - Save game");
         System.out.println("0 - Quit jMordhau");
     }
 

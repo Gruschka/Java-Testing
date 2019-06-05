@@ -16,6 +16,14 @@ public class commandNewMercenary implements iCommand {
         String newName = commandScanner.nextLine();
         Mercenary newMercenary = new Mercenary(newName);
         newMercenary.battleCry();
+        Weapon primary = new Weapon();
+        Weapon secondary = new Weapon();
+        Weapon tertiary = new Weapon();
+
+        newMercenary.primary = primary;
+        newMercenary.secondary = secondary;
+        newMercenary.tertiary = tertiary;
+
         aPlayer.mercenaryList.add(newMercenary);
     }
 
