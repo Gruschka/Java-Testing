@@ -34,6 +34,7 @@ public class commandBuyWeapons implements iCommand {
             if(deal == 'y' || deal == 'Y'){
                 System.out.println("It's a deal then! Thank you!");
                 aPlayer.spendMoney(weaponToBuy.cost);
+                Weapon newWeapon = new Weapon(weaponToBuy.type, weaponToBuy.name, weaponToBuy.attack, weaponToBuy.speed, weaponToBuy.block, weaponToBuy.cost);
                 aPlayer.weaponList.add(weaponToBuy);
             }else{
                 System.out.println("A'ight then. 'Till next time!");
